@@ -216,7 +216,8 @@ function mobilyaAnimasyon(animasyonYonu, mobilya, degerler){ // Mobilyanın vars
         
         }, 200); // Animasyon hızı (ms cinsinden)
         
-
+    }
+}
 function yurumeAnimasyonu(karakter) { // Yürüme animasyonu fonksiyonumuz karakterimiz yürüyormuş gibi görünür
 
     var animasyonKareleri = yurumeAnimasyonlari[karakter.facing]; // Yürüme animasyonunun görsel dizisini çekiyoruz
@@ -551,5 +552,6 @@ function openModal(mobilya) { // Modal açmamızı sağlayan fonksiyonumuz
         }
 
     }
+
 
 }
