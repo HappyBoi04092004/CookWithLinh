@@ -540,3 +540,51 @@ var mobilyalar = [
         animasyonZamanlayicisi: null
     },
 ];
+
+/* HÀM LƯU VÀ TẢI TIẾN TRÌNH GAME (LOCAL STORAGE) */
+function luuTienTrinhGame() {
+    try {
+        var dataToSave = {
+            envanter: envanter,
+            ayarlar: ayarlar
+        };
+        localStorage.setItem("cookWithLinh_saveData", JSON.stringify(dataToSave));
+        var saveStatus = document.getElementById("saveStatus");
+        if(saveStatus) {
+            saveStatus.style.display = "inline-block";
+            saveStatus.style.opacity = "1";
+            setTimeout(function(){
+                if(saveStatus) saveStatus.style.opacity = "0.75";
+            }, 800);
+        }
+    } catch(e) {
+        console.error("Lỗi lưu tiến trình game:", e);
+    }
+}
+
+function taiTienTrinhGame() {
+    try {
+        var savedDataStr = localStorage.getItem("cookWithLinh_saveData");
+        if(savedDataStr) {
+            var savedData = JSON.parse(savedDataStr);
+            if(savedData.envanter) {
+                Object.assign(envanter, savedData.envanter);
+            }
+            if(savedData.ayarlar) {
+                Object.assign(ayarlar, savedData.ayarlar);
+            }
+            console.log("Đã tải thành công tiến trình game!");
+            return true;
+        }
+    } catch(e) {
+        console.error("Lỗi tải tiến trình game:", e);
+    }
+    return false;
+}
+
+function xoaTienTrinhGame() {
+    if(confirm("Bạn có chắc chắn muốn xóa tiến trình chơi và bắt đầu lại từ đầu không?")) {
+        localStorage.removeItem("cookWithLinh_saveData");
+        location.reload();
+    }
+}

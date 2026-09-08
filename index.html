@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Babek's Steak House</title>
+    <title>Quán Ăn Của Linh - Cook With Linh</title>
 
-    <meta name="description" content="Restoran işletin ve zengin olun. Gerçekçi bir simülasyon oyunu." />
-    <meta name="keywords" content="yemek yapma oyunu, oyunlar, restoran oyunu" />
-    <meta name="author" content="Enes Babekoğlu">
-    <meta property="og:title" content="Babek's Steak House">
-    <meta property="og:site_name" content="Babek's Steak House">
+    <meta name="description" content="Quản lý nhà hàng, nấu ăn cùng Bếp Trưởng Linh." />
+    <meta name="keywords" content="game nấu ăn, quán ăn của linh, cook with linh, restaurant game" />
+    <meta name="author" content="Linh">
+    <meta property="og:title" content="Quán Ăn Của Linh - Cook With Linh">
+    <meta property="og:site_name" content="Quán Ăn Của Linh">
 
     <link rel="icon" type="image/png" href="images/icon.png">
     <link rel="stylesheet" href="style.css">
@@ -19,14 +19,15 @@
 <body>
 
     <nav>
-        <div class="logo">
-            <img src="images/logo.png" alt="Logo">
+        <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+            <img src="images/logo.png" alt="Logo" style="height: 45px;">
+            <span style="color: #ffca28; font-weight: bold; font-size: 1.2rem; text-shadow: 1px 1px 3px #000;">Quán Ăn Của Linh</span>
         </div>
         <ul class="nav-links">
-            <li><a onclick="sayfaDegistir('oyna');"><img src="images/play.png" alt="Oyna"> <text id="menu_text_oyna">Oyna</text></a></li>
-            <li><a onclick="sayfaDegistir('nasilOynanir');"><img src="images/nasil.png" alt="Soru İşareti"> <text id="menu_text_nasil_oynanir">Nasıl Oynanır?</text></a></li>
-            <li><a target="_blank" href="https://github.com/enesbabekoglu/javascript-canvas-restoran-oyunu"><img src="images/github.png" alt="Github"> Github</a></li>
-            <li><a onclick="closeModal(); openModal('dil_modal');"><img src="images/diller/tr.png" alt="Dil" id="dilButton"> <text id="dilAdi">Türkçe</text></a></li>
+            <li><a onclick="sayfaDegistir('oyna');"><img src="images/play.png" alt="Oyna"> <text id="menu_text_oyna">Chơi Game</text></a></li>
+            <li><a onclick="sayfaDegistir('nasilOynanir');"><img src="images/nasil.png" alt="Soru İşareti"> <text id="menu_text_nasil_oynanir">Hướng Dẫn</text></a></li>
+            <li><a onclick="xoaTienTrinhGame();" style="color: #ff6b6b; cursor: pointer;"><img src="images/butonlar/carpi.png" alt="Reset" style="width: 20px;"> <text id="menu_text_reset">Chơi Lại Từ Đầu</text></a></li>
+            <li><a onclick="closeModal(); openModal('dil_modal');"><img src="images/diller/vi.png" alt="Dil" id="dilButton"> <text id="dilAdi">Tiếng Việt</text></a></li>
         </ul>
     </nav>
 
@@ -36,11 +37,14 @@
 
             <div id="gameDiv">
                 <div>
-                <img src="images/logo.png" alt="Oyna" style="width: 450px;"><br>
-                <p style="display: none;" id="yukleniyor"></p>
-                <img id="playButton" src="images/butonlar/oynat.png" alt="Oyna" class="animasyonluResim"><br><br>
-                <img src="images/animasyonlar/karakter/Idle (3).png" alt="Karakter Giriş" id="oyun_acilis_animasyonu" style="width: 300px; margin-left: -50px;"><br>
-                <p>Copyright All Reserved &copy;2024 Enes Babekoğlu</p>
+                <img src="images/logo.png" alt="Cook With Linh" style="width: 450px;"><br>
+                <h2 style="color: #ffd54f; text-shadow: 2px 2px 4px #000; margin-top: -10px; margin-bottom: 15px;">Quán Ăn Bếp Trưởng Linh</h2>
+                <p style="display: none;" id="yukleniyor">Đang tải game...</p>
+                <img id="playButton" src="images/butonlar/oynat.png" alt="Bắt đầu" class="animasyonluResim"><br><br>
+                <div style="position: relative; display: inline-block;">
+                    <img src="images/animasyonlar/karakter/Idle (3).png" alt="Karakter Giriş" id="oyun_acilis_animasyonu" style="width: 280px; margin-left: -20px;">
+                </div>
+                <p style="color: #ddd; font-size: 0.9rem;">Cook With Linh &copy; 2026</p>
                 </div>
             </div>
 
@@ -50,18 +54,21 @@
                     <div class="topbar">
                         <ul class="menu" id="menu" style="display: none;">
 
-                            <li style="width: 70%; display: flex; justify-content: space-between;">
+                            <li style="width: 70%; display: flex; justify-content: space-between; align-items: center;">
                                 <div style="flex: 4;">
                                     <img src="images/eller.png" alt="Eller" class="img-1">
                                     <span onclick="elineAl(0, 0); return false;" class="span-1" id="elimizdeki"></span>
                                 </div>
                                 <div style="flex: 3;">
-                                    <img src="images/urunler/cash.png" alt="Altın" class="img-2">
+                                    <img src="images/urunler/cash.png" alt="Tiền" class="img-2">
                                     <span class="span-2"><text id="cash">0.00</text> $</span>
                                 </div>
                                 <div style="flex: 2;">
-                                    <img src="images/urunler/yildiz.png" alt="Yıldız" class="img-2">
+                                    <img src="images/urunler/yildiz.png" alt="Sao" class="img-2">
                                     <span class="span-2" id="yildiz">0</span>
+                                </div>
+                                <div style="flex: 2; text-align: center;">
+                                    <span id="saveStatus" style="font-size: 0.75rem; background: rgba(76, 175, 80, 0.85); color: white; padding: 4px 8px; border-radius: 12px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.3);">✓ Đã Tự Động Lưu</span>
                                 </div>
                             </li>
                             
@@ -91,12 +98,13 @@
 
         <div id="dil_modal" class="modal">
             <div class="modal-content">
-                <div class="modal-header"><div><text id="dil_degistir_adi">Diller</text> <span onclick="closeModal();"><img src="images/butonlar/carpi.png" alt="Kapat"></span></div></div>
+                <div class="modal-header"><div><text id="dil_degistir_adi">Chọn Ngôn Ngữ</text> <span onclick="closeModal();"><img src="images/butonlar/carpi.png" alt="Đóng"></span></div></div>
                 <center>
                     <div class="urunler" id="diller">
-                        <img src="images/diller/tr.png" alt="Türkçe" onclick="dilDegistir('tr');">
-                        <img src="images/diller/en.png" alt="İngilizce" onclick="dilDegistir('en');">
-                        <img src="images/diller/ru.png" alt="Rusça" onclick="dilDegistir('ru');">
+                        <img src="images/diller/vi.png" alt="Tiếng Việt" onclick="dilDegistir('vi');" title="Tiếng Việt">
+                        <img src="images/diller/en.png" alt="English" onclick="dilDegistir('en');" title="English">
+                        <img src="images/diller/tr.png" alt="Türkçe" onclick="dilDegistir('tr');" title="Türkçe">
+                        <img src="images/diller/ru.png" alt="Русский" onclick="dilDegistir('ru');" title="Русский">
                     </div>
                 </center>
             </div>
@@ -104,42 +112,42 @@
 
         <div id="dolap_modal" class="modal">
             <div class="modal-content">
-                <div class="modal-header"><div><text id="dolap_adi"></text> <span onclick="closeModal();"><img src="images/butonlar/carpi.png" alt="Kapat"></span></div></div>
+                <div class="modal-header"><div><text id="dolap_adi"></text> <span onclick="closeModal();"><img src="images/butonlar/carpi.png" alt="Đóng"></span></div></div>
                 <center><div class="urunler" id="dolap_urunler"></div></center>
             </div>
         </div>
 
         <div id="hazir_urunler_modal" class="modal">
             <div class="modal-content">
-                <div class="modal-header"><div><text id="hazirlanmis_urunler_dolap_adi"></text> <span onclick="closeModal();"><img src="images/butonlar/carpi.png" alt="Kapat"></span></div></div>
+                <div class="modal-header"><div><text id="hazirlanmis_urunler_dolap_adi"></text> <span onclick="closeModal();"><img src="images/butonlar/carpi.png" alt="Đóng"></span></div></div>
                 <center><div class="urunler" id="hazirlanmis_urunler_dolap_urunler"></div></center>
             </div>
         </div>
 
         <div id="yeni_siparisler_modal" class="modal">
             <div class="modal-content">
-                <div class="modal-header"><div><text id="yeni_siparisler_adi"></text> <span onclick="closeModal();"><img src="images/butonlar/carpi.png" alt="Kapat"></span></div></div>
+                <div class="modal-header"><div><text id="yeni_siparisler_adi"></text> <span onclick="closeModal();"><img src="images/butonlar/carpi.png" alt="Đóng"></span></div></div>
                 <center><div class="yeni_siparisler" id="yeni_siparisler"></div></center>
             </div>
         </div>
 
         <div id="teslim_noktasi_modal" class="modal">
             <div class="modal-content">
-                <div class="modal-header"><div><text id="teslim_noktasi_adi"></text> <span onclick="closeModal();"><img src="images/butonlar/carpi.png" alt="Kapat"></span></div></div>
+                <div class="modal-header"><div><text id="teslim_noktasi_adi"></text> <span onclick="closeModal();"><img src="images/butonlar/carpi.png" alt="Đóng"></span></div></div>
                 <center><div class="yeni_siparisler" id="teslim_noktasi"></div></center>
             </div>
         </div>
 
         <div id="hazirlama_alani_modal" class="modal">
             <div class="modal-content">
-                <div class="modal-header"><div><text id="hazirlama_alani_adi"></text> <span onclick="closeModal();"><img src="images/butonlar/carpi.png" alt="Kapat"></span></div></div>
+                <div class="modal-header"><div><text id="hazirlama_alani_adi"></text> <span onclick="closeModal();"><img src="images/butonlar/carpi.png" alt="Đóng"></span></div></div>
                 <center><div class="yeni_siparisler" id="hazirlama_alani"></div></center>
             </div>
         </div>
 
         <div id="market_modal" class="modal">
             <div class="modal-content">
-                <div class="modal-header"><div><text id="market_adi">Market</text> <span onclick="closeModal('market_modal');"><img src="images/butonlar/carpi.png" alt="Kapat"></span></div></div>
+                <div class="modal-header"><div><text id="market_adi">Cửa Hàng Thực Phẩm</text> <span onclick="closeModal('market_modal');"><img src="images/butonlar/carpi.png" alt="Đóng"></span></div></div>
                 <center><div class="market_urunler" id="market_urunler"></div></center>
             </div>
         </div>

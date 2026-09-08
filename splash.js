@@ -31,9 +31,8 @@ function kaydirmayiEngelle(event) { // Klavye olay dinleyicisi
 }
 
 function oyunBaslarken(){
-
+    taiTienTrinhGame();
     elimizdekiDiv.innerHTML = word['text_eller_bos'];
-    
 }
 
 /* Oyuna başlama ekranındaki id değeri playButton olan DOM elemanına tıklandığında oyunumuz başlayacaktır */
@@ -67,6 +66,9 @@ document.getElementById("playButton").addEventListener("click", function() {
 
         /* Mevcut Siparişlerin Sürelerini Kontrol Etme (UI Açısından) */
         setInterval(function(){siparisSureleriniGuncelle();}, 1000); // Her 1 saniyede bir çalışacaktır
+
+        /* Tự động lưu tiến trình game mỗi 3 giây */
+        setInterval(function(){luuTienTrinhGame();}, 3000);
 
         document.addEventListener('keydown', kaydirmayiEngelle, false); // Oyun içinde işlem yapılan tuşları olay dinleyicisi kullanarak dinlemeye başlıyoruz
 

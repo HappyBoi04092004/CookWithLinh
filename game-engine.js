@@ -33,6 +33,7 @@ function satinAl(urunKodu){ // Marketten bir ürün satın almamızı sağlayan 
             envanter['cash'] -= marketFiyatlar[urunKodu]; // Envanterimizden ürünün fiyatı kadar cash siliyoruz
 
             paySound(); // Ses çalar
+            luuTienTrinhGame(); // Tự động lưu tiến trình
 
         }else{ // Yetersiz bakiye
 
@@ -281,6 +282,7 @@ function teslimEt(siparisIndex, urun){ // Sipariş verilen bir ürünü bu fonks
                     if (siparisDiv) {siparisDiv.remove();} // Siparişi DOM'dan kaldırıyoruz
 
                     cashSound();
+                    luuTienTrinhGame(); // Tự động lưu tiến trình
 
                 }else{
 
