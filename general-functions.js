@@ -217,55 +217,6 @@ function mobilyaAnimasyon(animasyonYonu, mobilya, degerler){ // Mobilyanın vars
         }, 200); // Animasyon hızı (ms cinsinden)
         
 
-        setTimeout(function() {clearInterval(mobilya.animasyonZamanlayicisi);}, degerler["sure"]); // Mobilyanın çalışma süresi tamamlandı zamanlayıcıyı temizliyoruz
-
-    }else{
-
-        return;
-
-    }
-
-}
-
-function veNhanVatNuCanvas(x, y, w, h) {
-    context.save();
-
-    // Tóc dài màu nâu ấm áp dễ thương cho nhân vật nữ
-    context.fillStyle = "#5c2d1b";
-    
-    // Tóc trái
-    context.beginPath();
-    context.ellipse(x + w * 0.32, y + h * 0.35, w * 0.1, h * 0.16, 0.15, 0, Math.PI * 2);
-    context.fill();
-
-    // Tóc phải
-    context.beginPath();
-    context.ellipse(x + w * 0.68, y + h * 0.35, w * 0.1, h * 0.16, -0.15, 0, Math.PI * 2);
-    context.fill();
-
-    // Nơ bếp trưởng màu hồng xinh xắn trên nón/tóc
-    context.fillStyle = "#ff4081";
-    context.beginPath();
-    context.ellipse(x + w * 0.40, y + h * 0.15, w * 0.08, h * 0.045, -0.2, 0, Math.PI * 2);
-    context.fill();
-
-    context.beginPath();
-    context.ellipse(x + w * 0.60, y + h * 0.15, w * 0.08, h * 0.045, 0.2, 0, Math.PI * 2);
-    context.fill();
-
-    context.fillStyle = "#d81b60";
-    context.beginPath();
-    context.arc(x + w * 0.50, y + h * 0.15, w * 0.04, 0, Math.PI * 2);
-    context.fill();
-
-    // Tạp dề nữ màu hồng
-    context.fillStyle = "rgba(255, 105, 180, 0.85)";
-    context.beginPath();
-    context.fillRect(x + w * 0.38, y + h * 0.53, w * 0.24, h * 0.20);
-
-    context.restore();
-}
-
 function yurumeAnimasyonu(karakter) { // Yürüme animasyonu fonksiyonumuz karakterimiz yürüyormuş gibi görünür
 
     var animasyonKareleri = yurumeAnimasyonlari[karakter.facing]; // Yürüme animasyonunun görsel dizisini çekiyoruz
@@ -277,13 +228,10 @@ function yurumeAnimasyonu(karakter) { // Yürüme animasyonu fonksiyonumuz karak
     if (karakter.facing == "left") { // Karakterimizin yüzü sola dönükse
         context.save();
         context.scale(-1, 1); // Karakterin görselini yansıtıyoruz
-        var drawX = -karakter.x - karakter.width;
-        context.drawImage(image, drawX, karakter.y, karakter.width, karakter.height);
-        veNhanVatNuCanvas(drawX, karakter.y, karakter.width, karakter.height);
+        context.drawImage(image, -karakter.x - karakter.width, karakter.y, karakter.width, karakter.height);
         context.restore(); // Karakteri güncelliyoruz
     } else {
         context.drawImage(image, karakter.x, karakter.y, karakter.width, karakter.height); // Karakteri çiziyoruz
-        veNhanVatNuCanvas(karakter.x, karakter.y, karakter.width, karakter.height);
     }
 
     elimizdekiniCiz(); // Karakterin elinde tuttuğu ürünü eline çizen fonksiyonu çağırıyoruz
@@ -316,13 +264,10 @@ function karakteriCiz(karakter) { // Canvas içerisine karakterimizi çizmeyi sa
     if (karakter.facing == "left") { // Karakterimizin yüzü sola dönükse
         context.save();
         context.scale(-1, 1); // Karakterin görselini yansıtıyoruz
-        var drawX = -karakter.x - karakter.width;
-        context.drawImage(image, drawX, karakter.y, karakter.width, karakter.height);
-        veNhanVatNuCanvas(drawX, karakter.y, karakter.width, karakter.height);
+        context.drawImage(image, -karakter.x - karakter.width, karakter.y, karakter.width, karakter.height);
         context.restore(); // Karakteri güncelliyoruz
     } else {
         context.drawImage(image, karakter.x, karakter.y, karakter.width, karakter.height); // Karakteri çiziyoruz
-        veNhanVatNuCanvas(karakter.x, karakter.y, karakter.width, karakter.height);
     }
 
     elimizdekiniCiz(); // Karakterin elinde tuttuğu ürünü eline çizen fonksiyonu çağırıyoruz
